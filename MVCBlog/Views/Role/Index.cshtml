@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Microsoft.AspNet.Identity.EntityFramework.IdentityRole>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Available Roles For Application</h2>
+
+
+@if (User.Identity.IsAuthenticated)
+{
+    if (User.IsInRole("Administrators"))
+    {
+        @Html.ActionLink("Create Role", "Create", "Role")
+    }
+}
+
+<br />
+<br />
+
+
+<style type="text/css">
+    ul, li {
+        list-style-type: none;
+    }
+</style>
+
+
+<h1>Role name</h1>
+@foreach (var item in Model)
+{
+    <ul>
+        <li class="c">
+            @item.Name
+        </li>
+    </ul>
+}
+
+
+
+

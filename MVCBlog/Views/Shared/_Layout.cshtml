@@ -1,0 +1,147 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - DongVuHero Blog</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+
+        .text-small {
+        font-size: 0.9rem;
+        }
+
+        a {
+        color: inherit;
+        text-decoration: none;
+        transition: all 0.3s;
+        }
+
+        a:hover, a:focus {
+            text-decoration: none;
+        }
+
+        .form-control {
+        background: #212529;
+        border-color: #545454;
+        }
+
+        .form-control:focus {
+            background: #212529;
+        }
+
+        footer {
+        background: #212529;
+        }
+        body, html {
+        height: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top" style="background-color:#545454">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("DongVuHero Blog", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Posts", "Index", "Posts")</li>
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Courses", "Index", "Courses")</li>
+                    }
+                    
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (User.IsInRole("Administrators"))
+                        {
+                            <li>@Html.ActionLink("Role", "Index", "Role")</li>
+
+                        }
+                    }
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (User.IsInRole("Administrators"))
+                        {
+                            <li>@Html.ActionLink("Account", "Index", "ApplicationUsers")</li>
+
+                        }
+                    }
+
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+
+        @RenderSection("sideBar", false)
+
+        @if (!IsSectionDefined("sideBar"))
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    @RenderBody()
+                </div>
+            </div>
+        }
+        else
+        {
+            @RenderBody()
+        }
+    </div>
+
+    <hr />
+    <footer class="w-100 py-4 flex-shrink-0">
+        <div class="py-4">
+            <div class="row gy-4 gx-5">
+                <div class="col-lg-4 col-md-6">
+                    <h2 class="h1 text-white" style="color: white">DongVuHero</h2>
+                    <p class="small text-muted">This is a web app for mananger student.</p>
+                    <p class="small text-muted mb-0">&copy; Copyrights. All rights reserved. <a class="text-primary" href="#">DongVuHero.com</a></p>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h2 class="text-white mb-3" style="color: white">Quick links</h2>
+                    <ul class="list-unstyled text-muted">
+                        <li><a>@Html.ActionLink("Home", "Index", "Home")</a></li>
+                        <li><a>@Html.ActionLink("Posts", "Index", "Posts") </a></li>
+                        <li><a>@if (User.Identity.IsAuthenticated){ 
+                               @Html.ActionLink("Courses", "Index", "Courses")} </a></li>
+                        <li><a>@if (User.Identity.IsAuthenticated){ if (User.IsInRole("Administrators")){
+                                @Html.ActionLink("Account", "Index", "ApplicationUsers")}}</a></li>
+                            </ul>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h2 class="text-white mb-3" style="color: white"> Address </h2>
+                    <ul class="list-unstyled text-muted">
+                        <li><a href="#">177 Nguyen Cu Trinh, Nguyen Cu Trinh Ward, District 1, City. HCM ✅ Working hours: 9am - 23pm</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <h2 class="text-white mb-3" style="color: white">Contact Infor</h2>
+                    <p class="small text-muted">Hotline:0452786524 </p>
+                    <form action="#">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
